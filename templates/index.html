@@ -45,6 +45,14 @@
             margin-right: 20px;
         }
     </style>
+    <script>
+        function increment_auto_upper() {
+            document.getElementById('auto_upper').stepUp();
+        }
+        function decrement_auto_upper() {
+            document.getElementById('auto_upper').stepDown();
+        }
+    </script>
 
 </head>
 
@@ -135,6 +143,8 @@
 						</td>
 						<td>
 							{{ form.auto_upper() }}
+                            <button onclick="increment_auto_upper()">+</button>
+                            <button onclick="decrement_auto_upper()">-</button>
 						</td>
 					</tr>
 					<tr>

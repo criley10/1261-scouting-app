@@ -44,7 +44,7 @@ class RapidReactForm(FlaskForm):
     disconnected_total_seconds = IntegerField("Total seconds disconnected", validators=[DataRequired()], default=0)
     # disconnected_total_seconds = IntegerField("Total seconds disconnected", validators=[Optional(strip_whitespace=True)])
     crossed_tarmac = BooleanField("Crossed Tarmac during Auto")
-    auto_upper = IntegerField("Auto - Upper", validators=[DataRequired()])
+    auto_upper = IntegerField("Auto - Upper", validators=[DataRequired()],render_kw={"step": "2"})
     auto_lower = IntegerField("Auto - Lower", validators=[DataRequired()])
     teleop_upper = IntegerField("Teleop - Upper", validators=[DataRequired()])
     teleop_lower = IntegerField("Teleop - Lower", validators=[DataRequired()])
