@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title> 1261 Scouting App </title>
+    <link rel="shortcut icon" href="{{ url_for('static',filename='images/robocon.ico') }}">
+
+    <script src="{{ url_for('static', filename='js/jquery-3.2.1.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/submitData.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/incrementNumericLabel.js')}}"></script>
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/jquery.fancybox.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/responsive.css') }}">
+
+    <style>
+        body {
+            background-color: #00229e;
+            background-image: url(https://prhsrobotics.com/wp-content/uploads/2014/04/bg2.png);
+            background-position: left top;
+            background-size: auto;
+            background-repeat: repeat;
+            background-attachment: scroll;
+        }
+
+        ul li {
+            display: list-item;
+            list-style-type:circle;
+        }
+
+        h2, td, b{
+            color: #FFFFFF;
+        }
+
+        button, input, select, option {
+            color: #000000;
+        }
+
+		.robonav {
+            display: inline-block;
+            color: white;
+            text-decoration: underline;
+            margin-right: 20px;
+        }
+    </style>
+    <script>
+        function increment_auto_upper() {
+            document.getElementById('auto_upper').stepUp();
+        }
+        function decrement_auto_upper() {
+            document.getElementById('auto_upper').stepDown();
+        }
+    </script>
+
+</head>
+
+<body class="home blog custom-background">
+
+<ul style="display: inline-block; width:100%">
+    <li class="robonav"><a href="{{ url_for('main') }}">Home</a></li>
+    <li class="robonav"><a href="{{ url_for('toRankings') }}">Rankings</a></li>
+    <li class="robonav"><a href="{{ url_for('findTeam') }}">Find Team's Data</a></li>
+</ul>
+
+<hr>
+<h1 align="center" style="color:#FFFFFF;"> 1261 Robo Lions Scouting App </h1>
+<hr>
+<div class="col-md-10 col-md-offset-1 text-center">
+    <h4 align="center" style="color:#FFFFFF"> Welcome to the Peachtree Ridge HS Robo Lions Scouting App!</h4>
+    <h4 align="center" style="color:#FFFFFF"> If you experience any errors during competition, immediately notify a lead. Have fun!</h4>
+</div>
+
+<section id="descripton" class="section descripton">
+    <div style="width: 100%; display: table;">
+        <div style="display: table-row">
+            <div style="width: 800px; display: table-cell;">
+                <div class="col-md-10 col-md-offset-1">
+                    <h2 style="color:#FFFFFF">Stand Scouting</h2>
+
+                    <div id='main'>
+
+                        <script>
+                            function checkForm() {
+                            }
+                        </script>
+
+                        <form action="{{ url_for('submitData') }}" method="post">
+        {{ form.hidden_tag() }}
+				<table>
+					<tr>
+						<td>
+							Team Number
+						</td>
+						<td>
+							{{ form.team_number() }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Match Number
+						</td>
+						<td>
+							{{ form.match() }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Disabled/AFK
+						</td>
+						<td>
+							{{ form.disabled() }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Disconnected during the match
+						</td>
+						<td>
+							{{ form.disconnected() }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Total seconds disconnected
+						</td>
+						<td>
+							{{ form.disconnected_total_seconds() }}
+						</td>
+					</tr>
+                    <tr>
+						<td>
+							Crossed the Tarmac in Auto
+						</td>
+						<td>
+							{{ form.crossed_tarmac() }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Auto Balls Scored Upper
+						</td>
+						<td>
+							{{ form.auto_upper() }}
+                            <button onclick="increment_auto_upper()">+</button>
+                            <button onclick="decrement_auto_upper()">-</button>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Auto Balls Scored Lower
+						</td>
+						<td>
+							{{ form.auto_lower() }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Teleop Balls Scored Upper
+						</td>
+						<td>
+							{{ form.teleop_upper() }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Teleop Balls Scored Lower
+						</td>
+						<td>
+							{{ form.teleop_lower() }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Defense
+						</td>
+						<td>
+							{{ form.defense() }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Type of Shooter
+						</td>
+						<td>
+							{{ form.type() }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Shooting Position
+						</td>
+						<td>
+							{{ form.position() }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Robot's Speed
+						</td>
+						<td>
+							{{ form.speed() }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Robot's Stability
+						</td>
+						<td>
+							{{ form.stability() }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Rate Driver Skill
+						</td>
+						<td>
+							{{ form.driver() }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Rate Robot Accuracy
+						</td>
+						<td>
+							{{ form.accuracy() }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Climb Ability
+						</td>
+						<td>
+							{{ form.climb() }}
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Time taken to climb:
+						</td>
+						<td>
+							{{ form.climb_seconds() }}
+						</td>
+					</tr>
+				</table>
+				<br>
+            <h3>
+                <strong>
+                    Notes
+                </strong>
+            </h3>
+            {{ form.notes(rows=5) }}
+        <br>
+        <br>
+            {{ form.submit() }}
+        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

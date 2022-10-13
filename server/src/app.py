@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, make_response
 import database as db
 from forms import RapidReactForm, FindTeamForm
 import os
@@ -129,9 +129,14 @@ def getTeamData():
 
 @app.route('/rankings')
 def toRankings():
-    return render_template('rankings.html',
+    teams = db.getAlgorithmicRankings()
+    template = render_template('rankings.html',
                            name="Algorithm",
-                           data=db.getAlgorithmicRankings())
+                           teams_len=len(teams),
+                           teams=db.getAlgorithmicRankings())
+    response = make_response(template)
+    response.headers['Cache-Control'] = 'public, max-age=300, s-maxage=600'
+    return response
 
 
 @app.route('/getrankings', methods=['POST'])
@@ -158,9 +163,12 @@ def getRankingData():
         data = db.getDefenseRankings()
     else:
         data = db.getAlgorithmicRankings()  # algorithmic rankings are default
-    return render_template("rankings.html",
+    template = render_template("rankings.html",
                            name=str(config).capitalize(),
                            data=data)
+    response = make_response(template)
+    response.headers['Cache-Control'] = 'public, max-age=300, s-maxage=600'
+    return response
 
 @app.route('/findteam', methods=["GET", "POST"])
 def findTeam():
@@ -171,4 +179,4 @@ def findTeam():
     return render_template("find_team.html", form=form)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True,host='0.0.0.0',port=int(os.environ.get('PORT', 8080)))

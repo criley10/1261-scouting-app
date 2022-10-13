@@ -1,0 +1,17 @@
+certifi
+chardet
+click
+colorama
+dnspython
+Flask
+Flask-WTF
+gunicorn
+idna
+itsdangerous
+Jinja2
+MarkupSafe
+pymongo
+requests
+urllib3
+Werkzeug
+WTForms
